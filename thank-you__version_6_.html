@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thanks for subscribing — Private LTE &amp; 5G</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:        #FFFFFF;
+    --surface:   #F4FAFA;
+    --surface-2: #EEF7F6;
+    --line:      #DCEAEA;
+    --line-2:    #C7DDDD;
+    --cyan:      #00C3B3;   /* exact logo cyan — for large accents, borders, fills */
+    --cyan-ink:  #00A092;   /* hover */
+    --cyan-deep: #007A6E;   /* accessible cyan for small text / links on white */
+    --text:      #0B1A1C;   /* near-black body text */
+    --muted:     #526567;   /* secondary text on white */
+    --maxw:      1080px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- fixed (sticky) header ---------- */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255,255,255,0.92);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .site-header-inner {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 12px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .brand img {
+    height: 50px;
+    width: auto;
+    display: block;
+  }
+
+  /* ---------- hero ---------- */
+  .hero {
+    padding: 78px 0 46px;
+    text-align: center;
+  }
+  h1 {
+    font-weight: 800;
+    font-size: clamp(2.7rem, 8vw, 5.4rem);
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin: 0 auto 20px;
+    max-width: 16ch;
+    color: var(--text);
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.15s;
+  }
+  h1 .accent { color: var(--cyan); }
+  .sub {
+    font-size: clamp(1.05rem, 2vw, 1.28rem);
+    color: var(--muted);
+    max-width: 48ch;
+    margin: 0 auto 34px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.3s;
+  }
+  .sub strong { color: var(--text); font-weight: 600; }
+  .hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.45s;
+  }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    padding: 14px 24px;
+    border-radius: 9px;
+    border: 1px solid transparent;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:focus-visible { outline: 2px solid var(--cyan-deep); outline-offset: 3px; }
+  .btn-primary { background: var(--cyan); color: #05231F; border-color: var(--cyan); }
+  .btn-primary:hover { background: var(--cyan-ink); border-color: var(--cyan-ink); }
+  .btn-primary .arw { transition: transform 0.15s ease; }
+  .btn-primary:hover .arw { transform: translateX(3px); }
+  .btn-ghost { background: var(--bg); color: var(--text); border-color: var(--line-2); }
+  .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan-deep); }
+  .header-cta { padding: 11px 18px; font-size: 0.95rem; }
+
+  /* ---------- shared section head ---------- */
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cyan-deep);
+  }
+  .sec-title {
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+    letter-spacing: -0.015em;
+    margin: 0;
+    color: var(--text);
+  }
+
+  /* ---------- what we cover ---------- */
+  .manifest { margin: 72px 0 0; }
+  .rows { border-top: 1px solid var(--line); }
+  .row {
+    display: grid;
+    grid-template-columns: 52px 1fr auto;
+    align-items: center;
+    gap: 22px;
+    padding: 26px 8px 26px 4px;
+    border-bottom: 1px solid var(--line);
+    transition: background 0.18s ease, padding-left 0.18s ease;
+  }
+  .row:hover { background: var(--surface-2); padding-left: 14px; }
+  .r-idx {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cyan-deep);
+    letter-spacing: 0.08em;
+  }
+  .r-body h3 {
+    font-weight: 700;
+    font-size: 1.24rem;
+    margin: 0 0 5px;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+  .r-body p { margin: 0; color: var(--muted); font-size: 0.96rem; max-width: 64ch; }
+  .r-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--cyan-deep);
+    background: rgba(0,195,179,0.10);
+    border: 1px solid var(--cyan);
+    padding: 8px 12px;
+    border-radius: 6px;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.18s ease, transform 0.18s ease, background 0.18s ease;
+    white-space: nowrap;
+  }
+  .row:hover .r-mark { opacity: 1; transform: translateX(0); background: rgba(0,195,179,0.16); }
+
+  /* ---------- linkedin band ---------- */
+  .next {
+    margin: 64px 0 0;
+    padding: 44px 40px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .next .lead {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cyan-deep);
+    margin: 0 0 10px;
+  }
+  .next h2 {
+    font-weight: 700;
+    font-size: clamp(1.5rem, 3.4vw, 2.1rem);
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    margin: 0;
+    max-width: 20ch;
+    color: var(--text);
+  }
+  .actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  /* ---------- whitelist strip ---------- */
+  .tip {
+    margin: 22px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.92rem;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+    flex-wrap: wrap;
+  }
+  .tip .tag {
+    color: var(--cyan-deep);
+    border: 1px solid var(--line-2);
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .tip a { color: var(--text); text-decoration: none; border-bottom: 2px solid var(--cyan); }
+  .tip a:hover { color: var(--cyan-deep); }
+
+  /* ---------- footer ---------- */
+  footer {
+    margin-top: 72px;
+    padding: 26px 0 44px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  footer .social a { color: var(--muted); text-decoration: none; margin-left: 18px; }
+  footer .social a:hover { color: var(--cyan-deep); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 900px) {
+    .wrap { padding: 0 22px; }
+    .site-header-inner { padding: 12px 22px; }
+    .manifest { margin-top: 56px; }
+    .next { padding: 40px 32px; }
+  }
+
+  /* phones */
+  @media (max-width: 720px) {
+    .wrap { padding: 0 18px; }
+    .site-header-inner { padding: 10px 18px; }
+    .brand img { height: 40px; }
+    .header-cta { padding: 10px 15px; font-size: 0.9rem; }
+
+    .hero { padding: 48px 0 30px; }
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .hero-actions .btn { width: 100%; justify-content: center; }
+
+    .manifest { margin-top: 52px; }
+
+    /* rows: stack the CTA below the text so it stays tappable on touch */
+    .row {
+      grid-template-columns: 30px 1fr;
+      grid-template-areas:
+        "idx  body"
+        "cta  cta";
+      column-gap: 14px;
+      row-gap: 14px;
+      padding: 22px 4px;
+    }
+    .row:hover { padding-left: 4px; }
+    .r-idx  { grid-area: idx; }
+    .r-body { grid-area: body; }
+    .row > a { grid-area: cta; }
+    .r-mark {
+      opacity: 1;
+      transform: none;
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 12px;
+    }
+    .r-body p { font-size: 0.95rem; }
+
+    .next { padding: 30px 22px; gap: 24px; }
+    .actions { width: 100%; flex-direction: column; gap: 12px; }
+    .next .btn { width: 100%; justify-content: center; }
+
+    footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 24px 0 40px;
+    }
+    footer .social { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+    footer .social a { margin-left: 0; }
+  }
+
+  /* small phones */
+  @media (max-width: 420px) {
+    .wrap { padding: 0 15px; }
+    h1 { font-size: clamp(2.3rem, 11vw, 3rem); }
+    .row { column-gap: 10px; grid-template-columns: 24px 1fr; }
+    .tip { font-size: 0.86rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+    h1, .sub, .hero-actions { opacity: 1 !important; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- fixed header: logo + book a call -->
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="brand">
+        <img src="data:image/png;base64,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" alt="Private LTE and 5G — Market Pulse" />
+      </div>
+      <a class="btn btn-primary header-cta" href="https://calendly.com/kairospulse/meet-with-ashish?month=2026-09" target="_blank" rel="noopener">Book a call</a>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+    <!-- hero -->
+    <section class="hero">
+      <h1>Thanks for <span class="accent">subscribing</span>.</h1>
+      <p class="sub">Welcome to the community, <strong>{{First name}}</strong>! You're all set to get the latest on private LTE and 5G, straight to your inbox.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://www.privatelteand5g.com/">Explore the platform <span class="arw">&rarr;</span></a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/company/privatelteand5g/" target="_blank" rel="noopener">Follow on LinkedIn</a>
+      </div>
+    </section>
+
+    <!-- issue manifest -->
+    <section class="manifest">
+      <div class="sec-head">
+        <span class="eyebrow">While you're here · explore</span>
+        <h2 class="sec-title">What we cover</h2>
+      </div>
+      <div class="rows">
+        <div class="row">
+          <span class="r-idx">01</span>
+          <div class="r-body">
+            <h3>Deployments</h3>
+            <p>Who's rolling out private LTE &amp; 5G — where, in which verticals, and with which vendors.</p>
+          </div>
+          <a href="https://www.privatelteand5g.com/deployments/" target="_blank" rel="noopener"><span class="r-mark">EXPLORE</span></a>
+        </div>
+        <div class="row">
+          <span class="r-idx">02</span>
+          <div class="r-body">
+            <h3>Expert perspectives</h3>
+            <p>First-hand analysis from the operators, integrators, and architects building private networks.</p>
+          </div>
+          <a href="https://www.privatelteand5g.com/expert-perspectives/" target="_blank" rel="noopener"><span class="r-mark">READ</span></a>
+        </div>
+        <div class="row">
+          <span class="r-idx">03</span>
+          <div class="r-body">
+            <h3>The podcast</h3>
+            <p>New episodes and conversations from across the private-network industry, ready to play.</p>
+          </div>
+          <a href="https://www.privatelteand5g.com/podcast/" target="_blank" rel="noopener"><span class="r-mark">LISTEN</span></a>
+        </div>
+        <div class="row">
+          <span class="r-idx">04</span>
+          <div class="r-body">
+            <h3>The bootcamp</h3>
+            <p>Wireless Beyond Wi-Fi: The Playbook for IT and OT Leaders — convergence pitfalls, spectrum decisions, and the multi-technology fabric.</p>
+          </div>
+          <a href="https://us06web.zoom.us/webinar/register/rec/WN_RsPKtYq9R6-DDccqmw-8hA?meetingId=Vy5RD6j77V8n34x-Bm0oF4p8Y8YInAeXWObOq42BKrA7Sl6EkiqIfK2u-Vv_LkZy.3f-ZGBw-VCvmh6dt&playId=&action=play?accessLevel=meeting&hasValidToken=false&originRequestUrl=https%3A%2F%2Fus06web.zoom.us%2Frec%2Fshare%2FarpUIeu_hFEMhCH9GKtglKr5JsnITNt9SLCo9M0cvvTKmh1iF1WepDLsDGfGjyPE.lsDqLzXKjY2Bi1Tg%3FstartTime%3D1782313275000#/registration" target="_blank" rel="noopener"><span class="r-mark">ENROLL</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- linkedin band -->
+    <div class="next">
+      <div>
+        <p class="lead">Stay connected</p>
+        <h2>Follow us on LinkedIn.</h2>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://www.linkedin.com/company/privatelteand5g/" target="_blank" rel="noopener">Follow on LinkedIn <span class="arw">&rarr;</span></a>
+        <a class="btn btn-ghost" href="https://calendly.com/kairospulse/meet-with-ashish?month=2026-09" target="_blank" rel="noopener">Book a call</a>
+      </div>
+    </div>
+
+    <!-- whitelist tip -->
+    <p class="tip">
+      <span class="tag">Thank you for subscribing</span>
+      Add <a href="mailto:insights@privatelteand5g.com">insights@privatelteand5g.com</a> to your contacts so our newsletter doesn't land in spam.
+    </p>
+
+    <!-- footer -->
+    <footer>
+      <div>&copy; 2026 PrivateLTEand5G · A division of KAIROS Pulse</div>
+      <div class="social">
+        <a href="https://www.linkedin.com/company/privatelteand5g/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.privatelteand5g.com/">Website</a>
+        <a href="https://calendly.com/kairospulse/meet-with-ashish?month=2026-09" target="_blank" rel="noopener">Book a Meeting</a>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
